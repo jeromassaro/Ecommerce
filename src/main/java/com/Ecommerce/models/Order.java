@@ -20,10 +20,17 @@ public class Order {
     private Long id;
     private LocalDate orderDate;
     private double totalPrice;
+    @ManyToOne
+    @JoinColumn(name = "fkIdClient")
+    private Client client;
+    @ManyToOne
+    @JoinColumn(name = "fkProduct")
+    private Product product;
 
     // A la hora de crear una orden se asigna la fecha y hora del momento de creacion.
     @PrePersist
     protected void onCreate(){
         this.orderDate = LocalDate.now();
     }
+
 }

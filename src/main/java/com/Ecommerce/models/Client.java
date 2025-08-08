@@ -3,6 +3,8 @@ package com.Ecommerce.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -24,4 +26,6 @@ public class Client {
     @Column(unique = true)
     private int dni;
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "client")
+    private List<Order> orders;
 }
