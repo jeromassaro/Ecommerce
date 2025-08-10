@@ -15,26 +15,35 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<Order> getOrders() {
-        return List.of();
+        List<Order> orders = orderRepository.findAll();
+        return orders;
     }
 
     @Override
-    public Order createOrder(Order oder) {
-        return null;
+    public Order createOrder(Order order) {
+        order = orderRepository.save(order);
+        return order;
     }
 
     @Override
-    public Order updateOrder(Order oder) {
-        return null;
+    public Order updateOrder(Order order, Long id) {
+        Order oldOrder = orderRepository.findById(id).orElse(null);
+        if (oldOrder == null) return null;
+        oldOrder.setTotalPrice(order.getTotalPrice());
+        oldOrder.setProduct(order.getProduct());
+        oldOrder.setClient(order.getClient());
+        oldOrder = orderRepository.save(oldOrder);
+        return oldOrder;
     }
 
     @Override
-    public void deleteOrder(int id) {
-
+    public void deleteOrder(Long id) {
+        orderRepository.deleteById(id);
     }
 
     @Override
-    public Order getOrderbyID(int id) {
-        return null;
+    public Order getOrderbyID(Long id) {
+        Order order = orderRepository.findById(id).orElse(null);
+        return order;
     }
 }
